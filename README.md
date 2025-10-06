@@ -1,54 +1,119 @@
-# Dashboard
+Dashboard Project (HENNGE One Inspired)
+🚀 Project Overview
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a personal project inspired by HENNGE One, aiming to create a mini SaaS platform for access management and security dashboards.
+It is built with Vue 3, TypeScript, and Pinia for state management.
 
-## Recommended IDE Setup
+The project currently supports:
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+User authentication (login with JWT tokens)
 
-## Recommended Browser Setup
+Role-based access control (User / Admin)
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+A dashboard showing mock security and usage statistics
 
-## Type Support for `.vue` Imports in TS
+Simulated Multi-Factor Authentication (MFA) flow
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+The goal is to demonstrate frontend architecture, state management, and security-focused UI similar to enterprise SaaS applications.
 
-## Customize configuration
+🛠️ Tech Stack
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Frontend: Vue 3, TypeScript, Vite
 
-## Project Setup
+State Management: Pinia
 
-```sh
+Routing: Vue Router
+
+Testing: Vitest
+
+Linting: ESLint / Prettier
+
+Charts / Dashboard: (to be added, e.g., Chart.js, ApexCharts)
+
+🎯 Features
+For Users
+
+Login with JWT token
+
+Dashboard with personal connection history and MFA status
+
+Profile page to manage security settings (change password, toggle MFA)
+
+For Admins
+
+Dashboard showing organization-wide stats:
+
+Active users over 30 days
+
+Successful / failed login attempts
+
+MFA adoption rate
+
+Active sessions
+
+User management (mocked): activate/deactivate users, enforce MFA
+
+Audit logs (mocked): track login attempts, device usage
+
+Upcoming Features
+
+Replace mock data with real backend API
+
+Full MFA implementation with OTP generation
+
+Persistent login with refresh tokens
+
+Enhanced security policies (IP restrictions, session expiration)
+
+Exportable logs (CSV / JSON)
+
+Improved UI / responsive dashboard
+
+📦 Installation
+# Clone the repo
+git clone https://github.com/Blassenat/Dashboard.git
+
+# Navigate to the project folder
+cd Dashboard
+
+# Install dependencies
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# Start the development server
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
+🧭 Roadmap
 
-```sh
-npm run build
-```
+Complete the backend simulation for API calls
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Implement MFA flow fully
 
-```sh
-npm run test:unit
-```
+Add user management page for Admins
 
-### Lint with [ESLint](https://eslint.org/)
+Integrate charts and analytics for dashboard
 
-```sh
-npm run lint
-```
+Implement persistent login with refresh tokens
+
+Add real backend with database and secure endpoints
+
+Polish UI / responsive design
+
+Add tests for all critical functionalities
+
+📌 Notes
+
+This is a personal project for learning and portfolio purposes.
+
+Inspired by enterprise SaaS platforms focusing on identity, access management, and security dashboards.
+
+## Test Credentials
+
+For demo purposes, you can login with:
+- Email: `user1@example.com`
+- Password: `password1`
+- Role: admin
+
+Or:
+- Email: `user2@example.com`
+- Password: `password2`
+- Role: user

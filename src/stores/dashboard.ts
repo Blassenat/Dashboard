@@ -20,6 +20,7 @@ function generateUsers(
       id: i + 1,
       name: `User ${i + 1}`,
       email: `user${i + 1}@example.com`,
+      password: `password${i + 1}`,
       role: i % 2 === 0 ? 'admin' : 'user',
       isActive,
       lastLogin,
@@ -46,23 +47,43 @@ export const userDashboardStore = defineStore('dashboard', () => {
   const users = ref<User[]>([]);
   const loginTrends = ref<LoginPoint[]>(initLoginTrends(14, stats.value.activeUsers));
 
+  const currentMetrics = ref({
+    newSignups: 0,
+    activeSessions: 0,
+    mfaEnforcedPercentage: 35,
+    totalUsers: 0
+  });
+
   function refreshData() {
-    stats.value.activeUsers = Math.max(0, stats.value.activeUsers + Math.floor(Math.random() * 21) - 10);
     const lastPoint = loginTrends.value.at(-1);
     if (!lastPoint) return;
 
-    const loginsToday = Math.floor(stats.value.activeUsers * (0.2 + Math.random() * 0.2));
+    const variation = 0.05 + Math.random() * 0.1;
+    const isIncrease = Math.random() > 0.5;
+    const multiplier = isIncrease ? (1 + variation) : (1 - variation);
+
+    const loginsToday = Math.max(1, Math.floor(lastPoint.count * multiplier));
     const failedLogins = Math.floor(loginsToday * (0.01 + Math.random() * 0.02));
-    const newSignups = Math.floor(loginsToday * (0.03 + Math.random() * 0.02));
-    const activeSessions = Math.floor(loginsToday * (0.5 + Math.random() * 0.2));
-    const activeUsers= Math.floor(loginsToday * (0.7 + Math.random() * 0.2));
-    const mfaEnforcedPercentage = (stats.value.activeUsers * (Math.random() * 0.4 ) / stats.value.activeUsers) * 100;
-    const totalUsers = Math.floor(stats.value.activeUsers * 1.2);
 
     lastPoint.count = loginsToday;
     lastPoint.failedCount = failedLogins;
 
-    users.value = generateUsers(stats.value.activeUsers, totalUsers, loginsToday, mfaEnforcedPercentage);
+    const newSignups = Math.floor(loginsToday * (0.03 + Math.random() * 0.02));
+    const activeSessions = Math.floor(loginsToday * (0.5 + Math.random() * 0.2));
+    const activeUsers = Math.floor(loginsToday * (0.7 + Math.random() * 0.2));
+    const totalUsers = Math.floor(activeUsers * 1.2);
+    const mfaVariation = -2 + Math.random() * 4;
+    const mfaEnforcedPercentage = Math.max(20, Math.min(50, currentMetrics.value.mfaEnforcedPercentage + mfaVariation));
+
+    currentMetrics.value = {
+      newSignups,
+      activeSessions,
+      mfaEnforcedPercentage,
+      totalUsers
+    };
+
+    stats.value.activeUsers = activeUsers;
+    users.value = generateUsers(activeUsers, totalUsers, loginsToday, mfaEnforcedPercentage);
 
     return { loginsToday, failedLogins, newSignups, activeSessions, mfaEnforcedPercentage, totalUsers, activeUsers };
   }
@@ -70,22 +91,32 @@ export const userDashboardStore = defineStore('dashboard', () => {
   const dashboardData = computed(() => {
     const last = loginTrends.value.at(-1);
     const loginsToday = last ? last.count : 0;
+    const failedLogins = last?.failedCount ?? 0;
+    
     return {
       loginsToday,
-      failedLogins: Math.floor(loginsToday * 0.02),
-      newSignups: Math.floor(loginsToday * 0.03),
-      activeSessions: Math.floor(loginsToday * 0.5),
-      activeUsers: Math.floor(loginsToday * 1.6),
-      mfaEnforcedPercentage: (stats.value.activeUsers * (Math.random() * 0.4 ) / stats.value.activeUsers) * 100,
-      totalUsers: Math.floor(stats.value.activeUsers * 1.2),
+      failedLogins,
+      newSignups: currentMetrics.value.newSignups || Math.floor(loginsToday * 0.03),
+      activeSessions: currentMetrics.value.activeSessions || Math.floor(loginsToday * 0.5),
+      activeUsers: stats.value.activeUsers,
+      mfaEnforcedPercentage: currentMetrics.value.mfaEnforcedPercentage,
+      totalUsers: currentMetrics.value.totalUsers || Math.floor(stats.value.activeUsers * 1.2),
     };
   });
 
+  const initialLoginsToday = loginTrends.value.at(-1)?.count || 0;
+  currentMetrics.value = {
+    newSignups: Math.floor(initialLoginsToday * 0.03),
+    activeSessions: Math.floor(initialLoginsToday * 0.5),
+    mfaEnforcedPercentage: 35,
+    totalUsers: Math.floor(stats.value.activeUsers * 1.2)
+  };
+
   users.value = generateUsers(
     stats.value.activeUsers,
-    Math.floor(stats.value.activeUsers * 1.6),
-    dashboardData.value.loginsToday,
-    dashboardData.value.mfaEnforcedPercentage
+    currentMetrics.value.totalUsers,
+    initialLoginsToday,
+    currentMetrics.value.mfaEnforcedPercentage
   );
 
   return { stats, users, loginTrends, refreshData, dashboardData };

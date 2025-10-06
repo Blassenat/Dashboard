@@ -24,6 +24,7 @@ import AppSidebar from './AppSidebar.vue'
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 </style>

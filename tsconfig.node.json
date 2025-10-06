@@ -1,3 +1,24 @@
+// {
+//   "extends": "@tsconfig/node22/tsconfig.json",
+//   "include": [
+//     "vite.config.*",
+//     "vitest.config.*",
+//     "cypress.config.*",
+//     "nightwatch.conf.*",
+//     "playwright.config.*",
+//     "eslint.config.*"
+//   ],
+//   "compilerOptions": {
+//     "noEmit": true,
+//     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+
+//     "module": "ESNext",
+//     "moduleResolution": "Bundler",
+//     "types": ["node"]
+//   }
+// }
+// Old config file content before tryng to simulate an api with msw
+
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "include": [
@@ -6,14 +27,20 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "eslint.config.*"
+    "eslint.config.*",
+    "src/**/*"
   ],
   "compilerOptions": {
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
     "types": ["node"]
   }
 }
