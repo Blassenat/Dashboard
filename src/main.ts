@@ -3,6 +3,8 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import './mocks/browser';
+
 
 // Enable MSW mocking in development
 async function enableMocking() {
