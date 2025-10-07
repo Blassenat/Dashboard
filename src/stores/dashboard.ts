@@ -1,123 +1,108 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import type { User, LoginPoint } from '@/data/dashboardMock';
-import { dashboardMock } from '@/data/dashboardMock';
+import type { LoginPoint } from '@/mocks/data/dashboardMock';
 
-function generateUsers(
-  activeUsers: number,
-  totalUsers: number,
-  loginsToday: number,
-  mfaPercentage: number
-): User[] {
-  return Array.from({ length: totalUsers }).map((_, i) => {
-    const isActive = i < activeUsers;
-    const lastLogin =
-      i < loginsToday
-        ? new Date().toISOString()
-        : new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString();
-    const mfaEnabled = i < Math.floor(totalUsers * (mfaPercentage / 100));
-    return {
-      id: i + 1,
-      name: `User ${i + 1}`,
-      email: `user${i + 1}@example.com`,
-      password: `password${i + 1}`,
-      role: i % 2 === 0 ? 'admin' : 'user',
-      isActive,
-      lastLogin,
-      createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
-      mfaEnabled,
-    };
-  });
-}
-
-function initLoginTrends(days = 14, activeUsers: number) {
-  const trends: LoginPoint[] = [];
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    const loginsToday = Math.floor(activeUsers * (0.2 + Math.random() * 0.2));
-    const failedLogins = Math.floor(loginsToday * (0.01 + Math.random() * 0.02));
-    trends.push({ date: date.toISOString().slice(0, 10), count: loginsToday, failedCount: failedLogins });
-  }
-  return trends;
+interface DashboardStats {
+  loginsToday: number;
+  failedLogins: number;
+  newSignups: number;
+  activeSessions: number;
+  activeUsers: number;
+  mfaEnforcedPercentage: number;
+  totalUsers: number;
 }
 
 export const userDashboardStore = defineStore('dashboard', () => {
-  const stats = ref({ activeUsers: dashboardMock.stats.activeUsers });
-  const users = ref<User[]>([]);
-  const loginTrends = ref<LoginPoint[]>(initLoginTrends(14, stats.value.activeUsers));
-
-  const currentMetrics = ref({
+  // State
+  const loginTrends = ref<LoginPoint[]>([]);
+  const currentStats = ref<DashboardStats>({
+    loginsToday: 0,
+    failedLogins: 0,
     newSignups: 0,
     activeSessions: 0,
-    mfaEnforcedPercentage: 35,
+    activeUsers: 0,
+    mfaEnforcedPercentage: 0,
     totalUsers: 0
   });
+  
+  const isLoading = ref(false);
+  const error = ref<string | null>(null);
 
-  function refreshData() {
-    const lastPoint = loginTrends.value.at(-1);
-    if (!lastPoint) return;
+  // Fetch initial data
+  async function fetchDashboardData() {
+    isLoading.value = true;
+    error.value = null;
 
-    const variation = 0.05 + Math.random() * 0.1;
-    const isIncrease = Math.random() > 0.5;
-    const multiplier = isIncrease ? (1 + variation) : (1 - variation);
+    try {
+      // Fetch stats and trends in parallel
+      const [statsRes, trendsRes] = await Promise.all([
+        fetch('/api/dashboard/stats'),
+        fetch('/api/dashboard/login-trends?days=14')
+      ]);
 
-    const loginsToday = Math.max(1, Math.floor(lastPoint.count * multiplier));
-    const failedLogins = Math.floor(loginsToday * (0.01 + Math.random() * 0.02));
+      if (!statsRes.ok || !trendsRes.ok) {
+        throw new Error('Failed to fetch dashboard data');
+      }
 
-    lastPoint.count = loginsToday;
-    lastPoint.failedCount = failedLogins;
+      const stats = await statsRes.json();
+      const trendsData = await trendsRes.json();
 
-    const newSignups = Math.floor(loginsToday * (0.03 + Math.random() * 0.02));
-    const activeSessions = Math.floor(loginsToday * (0.5 + Math.random() * 0.2));
-    const activeUsers = Math.floor(loginsToday * (0.7 + Math.random() * 0.2));
-    const totalUsers = Math.floor(activeUsers * 1.2);
-    const mfaVariation = -2 + Math.random() * 4;
-    const mfaEnforcedPercentage = Math.max(20, Math.min(50, currentMetrics.value.mfaEnforcedPercentage + mfaVariation));
+      currentStats.value = stats;
+      loginTrends.value = trendsData.trends;
 
-    currentMetrics.value = {
-      newSignups,
-      activeSessions,
-      mfaEnforcedPercentage,
-      totalUsers
-    };
-
-    stats.value.activeUsers = activeUsers;
-    users.value = generateUsers(activeUsers, totalUsers, loginsToday, mfaEnforcedPercentage);
-
-    return { loginsToday, failedLogins, newSignups, activeSessions, mfaEnforcedPercentage, totalUsers, activeUsers };
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Unknown error occurred';
+      console.error('Dashboard fetch error:', e);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
-  const dashboardData = computed(() => {
-    const last = loginTrends.value.at(-1);
-    const loginsToday = last ? last.count : 0;
-    const failedLogins = last?.failedCount ?? 0;
+  // Refresh data (incremental update)
+  async function refreshData() {
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+      const response = await fetch('/api/dashboard/refresh', {
+        method: 'POST'
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to refresh dashboard');
+      }
+
+      const data = await response.json();
+      
+      // Update stats and trends
+      currentStats.value = data.stats;
+      loginTrends.value = data.trends;
+
+      return data.stats;
+
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to refresh data';
+      console.error('Dashboard refresh error:', e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // Computed property for dashboard data (for backward compatibility)
+  const dashboardData = computed(() => currentStats.value);
+
+  // Initialize data on store creation
+  fetchDashboardData();
+
+  return {
+    // State
+    loginTrends,
+    dashboardData,
+    isLoading,
+    error,
     
-    return {
-      loginsToday,
-      failedLogins,
-      newSignups: currentMetrics.value.newSignups || Math.floor(loginsToday * 0.03),
-      activeSessions: currentMetrics.value.activeSessions || Math.floor(loginsToday * 0.5),
-      activeUsers: stats.value.activeUsers,
-      mfaEnforcedPercentage: currentMetrics.value.mfaEnforcedPercentage,
-      totalUsers: currentMetrics.value.totalUsers || Math.floor(stats.value.activeUsers * 1.2),
-    };
-  });
-
-  const initialLoginsToday = loginTrends.value.at(-1)?.count || 0;
-  currentMetrics.value = {
-    newSignups: Math.floor(initialLoginsToday * 0.03),
-    activeSessions: Math.floor(initialLoginsToday * 0.5),
-    mfaEnforcedPercentage: 35,
-    totalUsers: Math.floor(stats.value.activeUsers * 1.2)
+    // Actions
+    refreshData,
+    fetchDashboardData
   };
-
-  users.value = generateUsers(
-    stats.value.activeUsers,
-    currentMetrics.value.totalUsers,
-    initialLoginsToday,
-    currentMetrics.value.mfaEnforcedPercentage
-  );
-
-  return { stats, users, loginTrends, refreshData, dashboardData };
 });
