@@ -13,11 +13,11 @@ import AppSidebar from './AppSidebar.vue'
 </script>
 
 <style scoped>
-
 .app-layout {
   display: flex;
   height: 100vh;
-  gap: 20px;
+  gap: var(--spacing-lg);
+  background-color: var(--color-bg-secondary);
 }
 
 .main-content {
@@ -25,6 +25,6 @@ import AppSidebar from './AppSidebar.vue'
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  min-width: 0; /* Prevents flex item from overflowing */
 }
-
 </style>

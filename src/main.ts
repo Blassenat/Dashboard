@@ -3,24 +3,21 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import './mocks/browser';
+import './styles/variables.css'
+import './styles/utilities.css'
 
 
-// Enable MSW mocking in development
+
 async function enableMocking() {
   if (import.meta.env.DEV) {
     const { worker } = await import('./mocks/browser')
-    return worker.start({
-      onUnhandledRequest: 'bypass',
-    })
+    return worker.start({ onUnhandledRequest: 'warn' })
   }
 }
 
 enableMocking().then(() => {
   const app = createApp(App)
-
   app.use(createPinia())
   app.use(router)
-
   app.mount('#app')
 })

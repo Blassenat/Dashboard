@@ -18,15 +18,42 @@
   }>();
   </script>
   
-  <style scoped>
-  .insight-card {
-    background: #fff;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border-left: 4px solid #3b82f6;
-  }
-  .insight-label { font-size: 0.75rem; color: #6b7280; margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; }
-  .insight-value { font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 0.25rem; }
-  .insight-description { font-size: 0.875rem; color: #6b7280; }
-  </style>
+<style scoped>
+.insight-card {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--color-primary);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--transition-base);
+}
+
+.insight-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.insight-label { 
+  font-size: var(--font-size-xs); 
+  color: var(--color-text-tertiary); 
+  margin-bottom: var(--spacing-sm); 
+  font-weight: var(--font-weight-medium); 
+  text-transform: uppercase; 
+  letter-spacing: 0.05em;
+}
+
+.insight-value { 
+  font-size: var(--font-size-2xl); 
+  font-weight: var(--font-weight-bold); 
+  color: var(--color-text-primary); 
+  margin-bottom: var(--spacing-sm); 
+  line-height: 1.2;
+}
+
+.insight-description { 
+  font-size: var(--font-size-base); 
+  color: var(--color-text-tertiary); 
+  line-height: 1.4;
+}
+</style>

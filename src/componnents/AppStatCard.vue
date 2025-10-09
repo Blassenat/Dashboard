@@ -53,31 +53,102 @@ const getTrendIcon = computed(() => {
 
 <style scoped>
 .stat-card {
-  background: #fff;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--color-border-light);
 }
 
-.stat-card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.1); transform: translateY(-2px); }
-.stat-card.highlight { border: 2px solid #f59e0b; background: linear-gradient(to bottom right, rgba(245,158,11,0.05), #fff); }
-.stat-card.highlight::before { content: '⚠️'; position: absolute; top: 0.5rem; right: 0.5rem; font-size: 1rem; }
-.stat-card.positive-metric { border-left: 4px solid #10b981; }
-.stat-card.negative-metric { border-left: 4px solid #ef4444; }
+.stat-card:hover { 
+  box-shadow: var(--shadow-md); 
+  transform: translateY(-2px); 
+}
 
-.stat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
-.stat-title { font-size: 0.875rem; color: #6b7280; font-weight: 500; flex: 1; }
+.stat-card.highlight { 
+  border: 2px solid var(--color-secondary); 
+  background: linear-gradient(to bottom right, var(--color-secondary-light), var(--color-bg-primary)); 
+}
 
-.trend-badge { display: flex; align-items: center; gap: 4px; padding: 2px 6px; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; }
-.trend-good { background: rgba(16,185,129,0.1); color: #10b981; }
-.trend-bad { background: rgba(239,68,68,0.1); color: #ef4444; }
-.trend-neutral { background: rgba(107,114,128,0.1); color: #6b7280; }
-.trend-icon { font-size: 0.875rem; line-height: 1; }
-.trend-value { line-height: 1; }
+.stat-card.highlight::before { 
+  content: '⚠️'; 
+  position: absolute; 
+  top: var(--spacing-md); 
+  right: var(--spacing-md); 
+  font-size: var(--font-size-lg); 
+}
 
-.stat-value { font-size: 1.75rem; font-weight: 700; color: #1f2937; margin-top: 0.25rem; line-height: 1.2; }
-.stat-sub { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; font-weight: 500; }
+.stat-card.positive-metric { 
+  border-left: 4px solid var(--color-success); 
+}
+
+.stat-card.negative-metric { 
+  border-left: 4px solid var(--color-error); 
+}
+
+.stat-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start; 
+  margin-bottom: var(--spacing-md); 
+}
+
+.stat-title { 
+  font-size: var(--font-size-base); 
+  color: var(--color-text-tertiary); 
+  font-weight: var(--font-weight-medium); 
+  flex: 1; 
+}
+
+.trend-badge { 
+  display: flex; 
+  align-items: center; 
+  gap: var(--spacing-xs); 
+  padding: var(--spacing-xs) var(--spacing-sm); 
+  border-radius: var(--radius-sm); 
+  font-size: var(--font-size-xs); 
+  font-weight: var(--font-weight-semibold); 
+}
+
+.trend-good { 
+  background: var(--color-success-light); 
+  color: var(--color-success); 
+}
+
+.trend-bad { 
+  background: var(--color-error-light); 
+  color: var(--color-error); 
+}
+
+.trend-neutral { 
+  background: var(--color-bg-tertiary); 
+  color: var(--color-text-tertiary); 
+}
+
+.trend-icon { 
+  font-size: var(--font-size-base); 
+  line-height: 1; 
+}
+
+.trend-value { 
+  line-height: 1; 
+}
+
+.stat-value { 
+  font-size: var(--font-size-3xl); 
+  font-weight: var(--font-weight-bold); 
+  color: var(--color-text-primary); 
+  margin-top: var(--spacing-sm); 
+  line-height: 1.2; 
+}
+
+.stat-sub { 
+  font-size: var(--font-size-xs); 
+  color: var(--color-text-quaternary); 
+  margin-top: var(--spacing-sm); 
+  font-weight: var(--font-weight-medium); 
+}
 </style>

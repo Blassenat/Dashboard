@@ -1,37 +1,57 @@
 <template>
-  <div class="login">
-    <h1>Login Page</h1>
-    <p>Please enter your credentials to log in.</p>
-    
-    <!-- Test credentials hint for demo -->
-    <div class="test-credentials">
-      <small>For testing purposes: user1@example.com / password1 (inactive)
-        <p>user2@example.com / password2 (active)</p>
-        <p>user3@example.com / password3 (active + admin)</p>
-      </small>
-    </div>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1 class="login-title">Welcome Back</h1>
+        <p class="login-subtitle">Please enter your credentials to log in</p>
+      </div>
 
-    <form @submit.prevent="handleLogin">
-      <input 
-        v-model="email" 
-        placeholder="Email" 
-        type="email"
-        :disabled="auth.isLoading"
-        required
-      />
-      <input 
-        v-model="password" 
-        type="password" 
-        placeholder="Password"
-        :disabled="auth.isLoading"
-        required
-      />
-      <button type="submit" :disabled="auth.isLoading">
-        {{ auth.isLoading ? 'Logging in...' : 'Login' }}
-      </button>
-    </form>
-    
-    <p v-if="error" class="error">{{ error }}</p>
+      <!-- Test credentials hint -->
+      <div class="test-credentials">
+        <p class="credentials-title">Test Credentials:</p>
+        <div class="credentials-list">
+          <code>user1@example.com / password1</code> <span class="badge badge-inactive">Inactive</span>
+          <code>user2@example.com / password2</code> <span class="badge badge-active">Active</span>
+          <code>user3@example.com / password3</code> <span class="badge badge-admin">Admin</span>
+        </div>
+      </div>
+
+      <form @submit.prevent="handleLogin" class="login-form">
+        <BaseInput
+          id="email"
+          v-model="email"
+          type="email"
+          label="Email Address"
+          placeholder="your.email@example.com"
+          :disabled="auth.isLoading"
+          :error="emailError"
+          required
+        />
+
+        <BaseInput
+          id="password"
+          v-model="password"
+          type="password"
+          label="Password"
+          placeholder="Enter your password"
+          :disabled="auth.isLoading"
+          required
+        />
+
+        <BaseButton 
+          type="submit"
+          :loading="auth.isLoading"
+          loading-text="Logging in..."
+          block
+        >
+          Login
+        </BaseButton>
+
+        <div v-if="error" class="status-message error">
+          {{ error }}
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -39,6 +59,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import BaseInput from '../componnents/BaseInput.vue'
+import BaseButton from '../componnents/BaseButton.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -46,9 +68,11 @@ const router = useRouter()
 const email = ref('')
 const password = ref('')
 const error = ref('')
+const emailError = ref('')
 
 async function handleLogin() {
   error.value = ''
+  emailError.value = ''
   
   const result = await auth.login(email.value, password.value)
   
@@ -61,62 +85,114 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-.login {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #006EFF 0%, #00A4FF 100%);
+  padding: var(--spacing-lg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3xl);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.login-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.login-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-tertiary);
+  margin: 0;
 }
 
 .test-credentials {
-  background-color: #f0f0f0;
-  padding: 8px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  text-align: center;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
 }
 
-.test-credentials small {
-  color: #666;
-  font-family: monospace;
+.credentials-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-md) 0;
 }
 
-input {
-  display: block;
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 8px;
-  box-sizing: border-box;
+.credentials-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
-input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
+.credentials-list code {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  display: inline-block;
 }
 
-button {
-  padding: 10px 16px;
-  background-color: #42b883;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 100%;
+.badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: 0.125rem var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  margin-left: var(--spacing-sm);
+  display: inline-block;
 }
 
-button:hover:not(:disabled) {
-  background-color: #2f9d69;
+.badge-inactive {
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.badge-active {
+  background-color: #d1fae5;
+  color: #065f46;
 }
 
-.error {
-  color: red;
-  margin-top: 8px;
-  text-align: center;
+.badge-admin {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+@media (max-width: 640px) {
+  .login-container {
+    padding: var(--spacing-md);
+  }
+
+  .login-card {
+    padding: var(--spacing-2xl);
+  }
+
+  .login-title {
+    font-size: var(--font-size-2xl);
+  }
 }
 </style>

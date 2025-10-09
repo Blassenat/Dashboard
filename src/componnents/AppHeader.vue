@@ -7,9 +7,14 @@
 <style scoped>
 h1 {
   text-align: center;
-  color: #7f0019;
-  padding: 10px 0;
+  color: var(--color-text-white);
+  padding: var(--spacing-lg) 0;
   margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  background: linear-gradient(135deg, #006EFF 0%, #00A4FF 100%);
+  border-bottom: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-md);
+  letter-spacing: -0.01em;
 }
-
 </style>

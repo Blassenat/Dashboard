@@ -44,13 +44,13 @@ export const userDashboardStore = defineStore('dashboard', () => {
     const mfaEnabledCount = users.filter(u => u.mfaEnabled).length;
     
     return {
-      loginsToday: 156,
-      failedLogins: 12,
-      newSignups: 8,
-      activeSessions: 89,
+      loginsToday: Math.floor(Math.random() * 300) + 250, // 250–550 logins today
+      failedLogins: Math.floor(Math.random() * 20) + 5, // 5–25 failed logins
+      newSignups: Math.floor(Math.random() * 15) + 3, // 3–18 new signups
+      activeSessions: Math.floor(Math.random() * 100) + 120, // 120–220 active sessions
       activeUsers: dashboardMock.stats.activeUsers,
       mfaEnforcedPercentage: Math.round((mfaEnabledCount / users.length) * 100),
-      totalUsers: users.length
+      totalUsers: dashboardMock.stats.activeUsers * Math.floor(Math.random() * 20)
     };
   }
 
@@ -64,8 +64,8 @@ export const userDashboardStore = defineStore('dashboard', () => {
       date.setDate(date.getDate() - i);
       trends.push({
         date: date.toISOString().split('T')[0],
-        count: Math.floor(Math.random() * 100) + 50,
-        failedCount: Math.floor(Math.random() * 20)
+        count: Math.floor(Math.random() * 150) + 200, // 200–350 successful logins per day
+        failedCount: Math.floor(Math.random() * 15) + 3 // 3–18 failed per day
       });
     }
     
@@ -108,12 +108,11 @@ export const userDashboardStore = defineStore('dashboard', () => {
         throw new Error('Simulated API error: Refresh failed');
       }
       
-      // Simulate slight variations in stats for refresh
       const baseStats = generateMockStats();
       currentStats.value = {
         ...baseStats,
-        loginsToday: baseStats.loginsToday + Math.floor(Math.random() * 10),
-        activeSessions: baseStats.activeSessions + Math.floor(Math.random() * 5)
+        loginsToday: baseStats.loginsToday + Math.floor(Math.random() * 15),
+        activeSessions: baseStats.activeSessions + Math.floor(Math.random() * 10)
       };
       loginTrends.value = generateMockTrends();
       

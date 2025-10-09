@@ -8,6 +8,12 @@ export const safeUser = (user: User) => {
 }
 
 export const handlers = [
+
+    // Vite source files - let them pass through
+    http.get('*/src/**/**', () => {
+      return HttpResponse.error()
+    }),
+
   http.post('/api/login', async ({ request }) => {
     try {
       const { email, password } = (await request.json()) as { email: string; password: string }

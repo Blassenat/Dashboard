@@ -1,0 +1,122 @@
+:root {
+  /* Colors - Primary (HENNGE Blue) */
+  --color-primary: #007aff;
+  --color-primary-hover: #005bb5;
+  --color-primary-light: #e6f2ff;
+  --color-primary-dark: #004080;
+
+  /* Colors - Secondary (Gradient Blue) */
+  --color-secondary: #006eff;
+  --color-secondary-hover: #005bb5;
+  --color-secondary-light: #e6f2ff;
+  --color-secondary-dark: #004080;
+
+  /* Colors - Accent (Primary Blue Variant) */
+  --color-accent: #00a4ff;
+  --color-accent-hover: #0088cc;
+  --color-accent-light: #e6f2ff;
+
+  /* Colors - Text */
+  --color-text-primary: #111111;
+  --color-text-secondary: #4a4a4a;
+  --color-text-tertiary: #666666;
+  --color-text-quaternary: #999999;
+  --color-text-white: #ffffff;
+
+  /* Colors - Background */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f7fa;
+  --color-bg-tertiary: #e6f2ff;
+  --color-bg-quaternary: #d9dde5;
+  --color-bg-hover: #f5f7fa;
+  --color-bg-dark: #4a4a4a;
+
+  /* Colors - Border */
+  --color-border-light: #d9dde5;
+  --color-border-medium: #c0c5cc;
+  --color-border-dark: #4a4a4a;
+  --color-border-accent: #007aff;
+
+  /* Colors - Status */
+  --color-success: #38a169;
+  --color-success-bg: #c6f6d5;
+  --color-success-text: #22543d;
+  --color-success-border: #9ae6b4;
+  --color-success-light: #f0fff4;
+
+  --color-error: #e53e3e;
+  --color-error-bg: #fed7d7;
+  --color-error-text: #742a2a;
+  --color-error-border: #feb2b2;
+  --color-error-light: #fff5f5;
+
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #92400e;
+  --color-warning-border: #fde68a;
+  --color-warning-light: #fffbeb;
+
+  --color-info: #007aff;
+  --color-info-bg: #e6f2ff;
+  --color-info-text: #004080;
+  --color-info-border: #b3d9ff;
+  --color-info-light: #f0f8ff;
+
+  /* Colors - Disabled */
+  --color-disabled: #d9dde5;
+  --color-disabled-bg: #f5f7fa;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 2.5rem;
+  --spacing-4xl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-full: 50%;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.875rem;
+  --font-size-md: 0.9375rem;
+  --font-size-lg: 1rem;
+  --font-size-xl: 1.125rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}

@@ -169,25 +169,113 @@ const formatDate = (dateStr: string) => {
 </script>
 
 <style scoped>
-.dashboard-container { width: 100%; min-height: 100vh; padding: 2rem; display: flex; flex-direction: column; gap: 2rem; font-family: 'Inter', sans-serif; box-sizing: border-box; }
-.dashboard-header h1 { font-size: 2rem; font-weight: 600; color: #1f2937; margin: 0; }
-.subtitle { color: #6b7280; font-size: 0.875rem; margin-top: 0.25rem; }
+.dashboard-container { 
+  width: 100%; 
+  min-height: 100vh; 
+  padding: var(--spacing-2xl); 
+  display: flex; 
+  flex-direction: column; 
+  gap: var(--spacing-2xl); 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+  box-sizing: border-box; 
+  background-color: var(--color-bg-secondary);
+}
 
-.top-section { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
-@media(max-width:1024px) { .top-section { grid-template-columns: 1fr; } }
+.dashboard-header h1 { 
+  font-size: var(--font-size-3xl); 
+  font-weight: var(--font-weight-bold); 
+  color: var(--color-text-primary); 
+  margin: 0; 
+}
 
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-.insights-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.subtitle { 
+  color: var(--color-text-tertiary); 
+  font-size: var(--font-size-base); 
+  margin-top: var(--spacing-sm); 
+}
 
-.chart-section { background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 100%; }
-.chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-.chart-header h2 { font-size: 1.25rem; font-weight: 600; color: #1f2937; margin: 0; }
+.top-section { 
+  display: grid; 
+  grid-template-columns: 2fr 1fr; 
+  gap: var(--spacing-2xl); 
+}
 
-.chart-container { height: 320px; width: 100%; }
-.chart-container canvas { width: 100% !important; height: 100% !important; }
+@media(max-width:1024px) { 
+  .top-section { 
+    grid-template-columns: 1fr; 
+  } 
+}
 
-.refresh-btn { padding: 0.625rem 1.25rem; border: none; background-color: #3b82f6; color: #fff; border-radius: 0.5rem; font-weight: 500; cursor: pointer; font-size: 0.875rem; transition: all 0.2s; }
-.refresh-btn:hover:not(:disabled) { background-color: #2563eb; transform: translateY(-1px); box-shadow: 0 4px 6px rgba(59,130,246,0.3); }
-.refresh-btn:disabled { background-color: #9ca3af; cursor: not-allowed; opacity: 0.6; }
-.refresh-btn:active:not(:disabled) { transform: translateY(0); }
+.stats-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+  gap: var(--spacing-lg); 
+}
+
+.insights-grid { 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: var(--spacing-lg); 
+}
+
+.chart-section { 
+  background: var(--color-bg-primary); 
+  border-radius: var(--radius-lg); 
+  padding: var(--spacing-2xl); 
+  box-shadow: var(--shadow-sm); 
+  border: 1px solid var(--color-border-light);
+  width: 100%; 
+}
+
+.chart-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: var(--spacing-xl); 
+}
+
+.chart-header h2 { 
+  font-size: var(--font-size-xl); 
+  font-weight: var(--font-weight-semibold); 
+  color: var(--color-text-primary); 
+  margin: 0; 
+}
+
+.chart-container { 
+  height: 320px; 
+  width: 100%; 
+}
+
+.chart-container canvas { 
+  width: 100% !important; 
+  height: 100% !important; 
+}
+
+.refresh-btn { 
+  padding: var(--spacing-md) var(--spacing-xl); 
+  border: none; 
+  background: linear-gradient(135deg, #006EFF 0%, #00A4FF 100%); 
+  color: var(--color-text-white); 
+  border-radius: var(--radius-sm); 
+  font-weight: var(--font-weight-medium); 
+  cursor: pointer; 
+  font-size: var(--font-size-base); 
+  transition: all var(--transition-base); 
+}
+
+.refresh-btn:hover:not(:disabled) { 
+  background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-secondary-hover) 100%); 
+  transform: translateY(-1px); 
+  box-shadow: var(--shadow-md); 
+}
+
+.refresh-btn:disabled { 
+  background-color: var(--color-disabled); 
+  cursor: not-allowed; 
+  opacity: 0.6; 
+}
+
+.refresh-btn:active:not(:disabled) { 
+  transform: translateY(0); 
+}
 </style>
