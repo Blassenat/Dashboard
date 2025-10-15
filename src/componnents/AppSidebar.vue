@@ -99,7 +99,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 .sidebar {
   width: 250px;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background:var(--color-primary-ligh);
   display: flex;
   flex-direction: column;
   color: var(--color-text-white);
@@ -114,7 +114,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 .sidebar-title {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: white;
+  color: rgb(0, 0, 0);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -138,7 +138,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
   padding: var(--spacing-md) var(--spacing-lg);
   text-align: left;
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   border: none;
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -150,8 +150,8 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 }
 
 .sidebar-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgb(0, 0, 0);
   transform: translateX(4px);
 }
 

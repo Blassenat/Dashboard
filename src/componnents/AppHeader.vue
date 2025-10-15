@@ -12,7 +12,7 @@ h1 {
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  background: linear-gradient(135deg, #006EFF 0%, #00A4FF 100%);
+  background: linear-gradient(135deg, #083464 0%, #00A4FF 100%);
   border-bottom: 1px solid var(--color-border-light);
   box-shadow: var(--shadow-md);
   letter-spacing: -0.01em;

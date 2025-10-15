@@ -90,8 +90,8 @@ async function handleLogin() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #006EFF 0%, #00A4FF 100%);
   padding: var(--spacing-lg);
+  background-color: var(--color-bg-secondary);
 }
 
 .login-card {
@@ -100,7 +100,7 @@ async function handleLogin() {
   background-color: var(--color-bg-primary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-3xl);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -3px rgba(0, 0, 0, 0.1)
 }
 
 .login-header {
