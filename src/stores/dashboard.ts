@@ -63,7 +63,8 @@ export const userDashboardStore = defineStore('dashboard', () => {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       trends.push({
-        date: date.toISOString().split('T')[0],
+        // slice is safer with noUncheckedIndexedAccess
+        date: date.toISOString().slice(0, 10),
         count: Math.floor(Math.random() * 150) + 200, // 200–350 successful logins per day
         failedCount: Math.floor(Math.random() * 15) + 3 // 3–18 failed per day
       });

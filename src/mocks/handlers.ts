@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { dashboardMock, User } from '@/mocks/data/dashboardMock'
+import { dashboardMock, type User } from '@/mocks/data/dashboardMock'
 
 export const safeUser = (user: User) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
