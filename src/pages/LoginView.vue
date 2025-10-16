@@ -59,8 +59,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
-import BaseInput from '../componnents/BaseInput.vue'
-import BaseButton from '../componnents/BaseButton.vue'
+import BaseInput from '../components/BaseInput.vue'
+import BaseButton from '../components/BaseButton.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

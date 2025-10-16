@@ -2,14 +2,17 @@
   <div class="app-layout">
     <AppSidebar />
     <main class="main-content">
-  
+      <div class="main-header">
+        <ThemeToggle />
+      </div>
       <router-view />
     </main>
   </div>
 </template>
 
 <script setup lang="ts"> 
-import AppSidebar from './AppSidebar.vue'  
+import AppSidebar from './AppSidebar.vue' 
+import ThemeToggle from './ThemeToggle.vue'; 
 </script>
 
 <style scoped>

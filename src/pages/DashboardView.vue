@@ -87,9 +87,9 @@
 </template>
 
 <script setup lang="ts">
-import AppStatCard from '@/componnents/AppStatCard.vue';
-import AppInsightCard from '@/componnents/AppInsightCard.vue';
-import AppLineChart from '@/componnents/AppLineChart.vue';
+import AppStatCard from '@/components/AppStatCard.vue';
+import AppInsightCard from '@/components/AppInsightCard.vue';
+import AppLineChart from '@/components/AppLineChart.vue';
 import { userDashboardStore } from '@/stores/dashboard';
 import { computed, ref } from 'vue';
 

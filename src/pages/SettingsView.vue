@@ -72,10 +72,10 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import { useAuthStore } from "../stores/auth";
-import BaseInput from "../componnents/BaseInput.vue";
-import BaseCheckbox from "../componnents/BaseCheckbox.vue";
-import BaseButton from "../componnents/BaseButton.vue";
-import SettingsSection from "../componnents/SettingsSection.vue";
+import BaseInput from "../components/BaseInput.vue";
+import BaseCheckbox from "../components/BaseCheckbox.vue";
+import BaseButton from "../components/BaseButton.vue";
+import SettingsSection from "../components/SettingsSection.vue";
 
 const editableUser = ref<PublicUser | null>(null);
 const auth = useAuthStore();

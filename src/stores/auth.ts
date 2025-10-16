@@ -1,3 +1,6 @@
+// src/stores/auth.ts
+// REPLACE ENTIRE FILE WITH THIS:
+
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -11,6 +14,36 @@ type PublicUser = {
   createdAt: string;
   mfaEnabled: boolean;
 };
+
+// Helper functions for safe localStorage operations
+function safeSetItem(key: string, value: string): boolean {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (error) {
+    console.error(`Failed to save ${key} to localStorage:`, error);
+    return false;
+  }
+}
+
+function safeGetItem(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    console.error(`Failed to read ${key} from localStorage:`, error);
+    return null;
+  }
+}
+
+function safeRemoveItem(key: string): boolean {
+  try {
+    localStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    console.error(`Failed to remove ${key} from localStorage:`, error);
+    return false;
+  }
+}
 
 export const useAuthStore = defineStore("auth", () => {
   const isLoggedIn = ref(false);
@@ -42,9 +75,14 @@ export const useAuthStore = defineStore("auth", () => {
       user.value = data.user;
       isLoggedIn.value = true;
 
-      // Persist to localStorage
-      localStorage.setItem("authToken", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // Persist to localStorage with error handling
+      const tokenSaved = safeSetItem("authToken", data.token);
+      const userSaved = safeSetItem("user", JSON.stringify(data.user));
+
+      // Warn if storage failed but continue (user is still logged in for session)
+      if (!tokenSaved || !userSaved) {
+        console.warn('Session will not persist after page reload');
+      }
 
       isLoading.value = false;
       return { success: true };
@@ -73,15 +111,18 @@ export const useAuthStore = defineStore("auth", () => {
       user.value = null;
       token.value = null;
       isLoggedIn.value = false;
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("user");
+      
+      // Clear localStorage with error handling
+      safeRemoveItem("authToken");
+      safeRemoveItem("user");
+      
       isLoading.value = false;
     }
   }
 
   function init() {
-    const savedToken = localStorage.getItem("authToken");
-    const savedUser = localStorage.getItem("user");
+    const savedToken = safeGetItem("authToken");
+    const savedUser = safeGetItem("user");
 
     if (savedToken && savedUser) {
       try {
@@ -90,7 +131,9 @@ export const useAuthStore = defineStore("auth", () => {
         isLoggedIn.value = true;
       } catch (error) {
         console.error('Failed to parse saved user data:', error);
-        logout();
+        // Clear corrupted data
+        safeRemoveItem("authToken");
+        safeRemoveItem("user");
       }
     }
   }
