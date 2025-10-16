@@ -42,57 +42,64 @@
   }>();
   </script>
   
-  <style scoped>
-  .form-group {
-    margin-bottom: var(--spacing-xl);
-  }
-  
-  .form-label {
-    display: block;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-sm);
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: var(--spacing-md) var(--spacing-lg);
-    font-size: var(--font-size-lg);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-bg-primary);
-    transition: all var(--transition-base);
-    font-family: inherit;
-  }
-  
-  .form-input:hover:not(:disabled) {
-    border-color: var(--color-border-dark);
-  }
-  
-  .form-input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-focus);
-    background-color: var(--color-primary-light);
-  }
-  
-  .form-input:disabled {
-    background-color: var(--color-bg-tertiary);
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-  
-  .form-hint {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-    margin: var(--spacing-sm) 0 0 0;
-  }
-  
-  .form-error {
-    font-size: var(--font-size-xs);
-    color: var(--color-error-text);
-    margin: var(--spacing-sm) 0 0 0;
-    font-weight: var(--font-weight-medium);
-  }
-  </style>
+<style scoped>
+.form-group {
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-lg);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.form-input:hover:not(:disabled) {
+  border-color: var(--color-border-dark);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  background-color: var(--color-bg-primary); 
+}
+
+.form-input:disabled {
+  background-color: var(--color-bg-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
+.form-input::placeholder {
+  color: var(--color-text-quaternary);
+  opacity: 0.7;
+}
+
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin: var(--spacing-sm) 0 0 0;
+}
+
+.form-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-error-text);
+  margin: var(--spacing-sm) 0 0 0;
+  font-weight: var(--font-weight-medium);
+}
+</style>

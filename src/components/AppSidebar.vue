@@ -99,22 +99,22 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 .sidebar {
   width: 250px;
   min-height: 100vh;
-  background:var(--color-primary-ligh);
+  background: linear-gradient(180deg, var(--color-primary-light) 0%, var(--color-bg-secondary) 100%);
   display: flex;
   flex-direction: column;
-  color: var(--color-text-white);
+  color: var(--color-text-primary);
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header {
   padding: var(--spacing-2xl) var(--spacing-xl);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .sidebar-title {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: rgb(0, 0, 0);
+  color: var(--color-text-primary); /* ✅ FIXED: Now uses CSS variable */
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -138,7 +138,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
   padding: var(--spacing-md) var(--spacing-lg);
   text-align: left;
   background-color: transparent;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--color-text-secondary); /* ✅ FIXED: Now uses CSS variable */
   border: none;
   border-radius: var(--radius-sm);
   text-decoration: none;
@@ -150,8 +150,8 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 }
 
 .sidebar-link:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: rgb(0, 0, 0);
+  background-color: var(--color-bg-hover); /* ✅ FIXED: Now uses CSS variable */
+  color: var(--color-text-primary); /* ✅ FIXED: Now uses CSS variable */
   transform: translateX(4px);
 }
 
@@ -173,7 +173,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 
 .sidebar-footer {
   padding: var(--spacing-xl);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .user-info {
@@ -204,7 +204,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 .user-name {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  color: white;
+  color: var(--color-text-primary); /* ✅ FIXED: Now uses CSS variable */
   margin: 0 0 0.25rem 0;
   white-space: nowrap;
   overflow: hidden;
@@ -213,7 +213,7 @@ const links = computed(() => getLinksForRole(auth.user?.role || null))
 
 .user-role {
   font-size: var(--font-size-xs);
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-tertiary); /* ✅ FIXED: Now uses CSS variable */
   margin: 0;
   text-transform: capitalize;
 }

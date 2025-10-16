@@ -30,4 +30,14 @@ import ThemeToggle from './ThemeToggle.vue';
   overflow-x: hidden;
   min-width: 0; /* Prevents flex item from overflowing */
 }
+
+.main-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-light);
+  min-height: 60px;
+}
 </style>
