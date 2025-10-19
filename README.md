@@ -1,34 +1,4 @@
-🔐 Dashboard Training Project
-
-A modern, security-focused dashboard application built with Vue 3 and TypeScript, featuring authentication, role-based access control, and real-time monitoring capabilities.
-
-Live Demo
- • Report Bug
- • Request Feature
-
-📋 Table of Contents
-
 About
-
-Features
-
-Tech Stack
-
-Getting Started
-
-Project Structure
-
-Usage
-
-Testing
-
-Roadmap
-
-Contributing
-
-License
-
-🎯 About
 
 This project is a comprehensive dashboard training application inspired by enterprise SaaS platforms. It demonstrates modern frontend development practices with a focus on security, authentication, and user access management.
 
@@ -42,7 +12,7 @@ Modern UI/UX: Responsive design with light/dark theme support
 
 Production-Ready Patterns: MSW for API mocking, comprehensive error handling, and TypeScript throughout
 
-✨ Features
+Features
 🔐 Authentication & Security
 
 JWT-based authentication with secure token storage
@@ -83,11 +53,11 @@ Profile management with security settings
 
 🎨 UI/UX Features
 
-Dark Mode Support: Full theme switching capability
+Dark Mode Support
 
-Responsive Design: Mobile, tablet, and desktop optimized
+Responsive Design: Mobile, tablet, desktop
 
-Modern Design System: Consistent spacing, colors, and typography
+Modern Design System: Consistent spacing, colors, typography
 
 Loading States: Shimmer effects and spinners
 
@@ -95,47 +65,22 @@ Error Handling: User-friendly error messages
 
 🛠️ Developer Experience
 
-TypeScript: Full type safety throughout the application
+TypeScript: Full type safety
 
-Component Library: Reusable base components (BaseInput, BaseButton, BaseCheckbox)
+Component Library: Reusable base components
 
-State Management: Centralized state with Pinia
+State Management: Pinia
 
-API Mocking: MSW for realistic development experience
+API Mocking: MSW
 
-Hot Module Replacement: Instant feedback during development
+Hot Module Replacement
 
-🛠️ Tech Stack
-
-Core Technologies:
-
-Vue 3 - Progressive JavaScript framework with Composition API
-
-TypeScript - Type-safe JavaScript
-
-Vite - Next-generation frontend tooling
-
-Pinia - Intuitive state management
-
-Routing & UI:
-
-Vue Router - Official router for Vue.js
-
-Chart.js - Simple yet flexible JavaScript charting
-
-vue-chartjs - Vue wrapper for Chart.js
-
-Development Tools:
-
-Vitest - Blazing fast unit test framework
-
-MSW - API mocking library
-
-ESLint - Code linting
-
-Prettier - Code formatting
-
-🚀 Getting Started
+Tech Stack
+Frontend	State & Routing	Charts & UI	Dev Tools
+Vue 3	Pinia	Chart.js	Vitest
+TypeScript	Vue Router	vue-chartjs	MSW
+Vite			ESLint/Prettier
+Getting Started
 Prerequisites
 
 Node.js 18.x or higher
@@ -149,7 +94,7 @@ npm install
 npm run dev
 
 
-Open your browser and navigate to http://localhost:5173
+Open your browser: http://localhost:5173
 
 Test Credentials
 Email	Password	Role	Status
@@ -159,10 +104,9 @@ user2@example.com
 	password2	User	Active
 user3@example.com
 	password3	Admin	Active
-    
-📁 Project Structure
+Project Structure
 src/
-├── components/          # Reusable UI components
+├── components/
 │   ├── AppHeader.vue
 │   ├── AppSidebar.vue
 │   ├── AppLayout.vue
@@ -170,14 +114,14 @@ src/
 │   ├── BaseInput.vue
 │   ├── BaseButton.vue
 │   └── BaseCheckbox.vue
-├── pages/               # Route-level components
+├── pages/
 │   ├── LoginView.vue
 │   ├── HomeView.vue
 │   ├── DashboardView.vue
 │   ├── SettingsView.vue
 │   ├── UserView.vue
 │   └── LogsView.vue
-├── stores/              # Pinia state management
+├── stores/
 │   ├── auth.ts
 │   └── dashboard.ts
 ├── router/
@@ -197,154 +141,83 @@ src/
 └── __tests__/
     └── App.spec.ts
 
-💻 Usage
+Usage
 
-Available Scripts:
+Scripts
 
-npm run dev           # Start development server
-npm run build         # Build for production
-npm run preview       # Preview production build locally
-npm run test:unit     # Run unit tests
-npm run test:unit:watch # Run tests in watch mode
-npm run lint          # Run linter
-npm run type-check    # Type-check TypeScript
+npm run dev            # Start development server
+npm run build          # Build for production
+npm run preview        # Preview production build locally
+npm run test:unit      # Run unit tests
+npm run test:unit:watch# Watch tests
+npm run lint           # Run linter
+npm run type-check     # TypeScript type check
 
 
-Key Features by Route:
+Routes
 
-/login - Login Page
-
-/ - Home Page
-
-/dashboard - Analytics Dashboard (Admin only)
-
-/settings - User Settings
-
-/user - User Management (Admin only)
-
-/logs - System Logs (Admin only)
-
-🧪 Testing
-
-Uses Vitest for unit testing with Vue Test Utils
-
+Route	Purpose
+/login	Login Page
+/	Home Page
+/dashboard	Analytics Dashboard (Admin)
+/settings	User Settings
+/user	User Management (Admin)
+/logs	System Logs (Admin)
+Testing
 npm run test:unit
 npm run test:unit:watch
 npm run test:unit -- --coverage
 
 
-Current Test Coverage:
+Coverage
 ✅ App component mounting
 ✅ AppHeader component rendering
 🚧 Store logic (planned)
 🚧 Component interactions (planned)
 
-🗺️ Roadmap
+Roadmap
+Phase	Status	Features
+1: Core Features	✅ Completed	JWT auth, RBAC, dashboard mock, settings page, dark mode, responsive design
+2: Enhanced Features	🚧 In Progress	Replace MSW with real API, MFA OTP, refresh tokens, full user CRUD, log export, email notifications
+3: Advanced Features	📋 Planned	2FA QR codes, IP restrictions, session timeout, audit trail, user invitations, bulk ops
+4: Production Readiness	🎯 Future	Backend integration, DB persistence, test coverage >80%, E2E testing, performance, accessibility, i18n, Docker
+Contributing
 
-Phase 1: Core Features ✅ (Completed)
+Fork the repo
 
-Authentication system with JWT
+Create branch: git checkout -b feature/AmazingFeature
 
-Role-based access control
+Commit changes: git commit -m 'Add some AmazingFeature'
 
-Dashboard with mock data
-
-User settings page
-
-Dark mode implementation
-
-Responsive design
-
-Phase 2: Enhanced Features 🚧 (In Progress)
-
-Replace MSW with real backend API
-
-Implement actual MFA flow with OTP
-
-Add persistent login with refresh tokens
-
-Complete user management CRUD operations
-
-Implement log export functionality (CSV/JSON)
-
-Add email notifications
-
-Phase 3: Advanced Features 📋 (Planned)
-
-Two-factor authentication (2FA) with QR codes
-
-IP-based access restrictions
-
-Session management with timeout
-
-Audit trail with detailed logs
-
-Advanced security policies
-
-User invitation system
-
-Bulk user operations
-
-Phase 4: Production Readiness 🎯 (Future)
-
-Backend integration with REST API
-
-Database persistence (PostgreSQL)
-
-Comprehensive test coverage (>80%)
-
-E2E testing with Playwright
-
-Performance optimization
-
-Accessibility improvements (WCAG 2.1 AA)
-
-Internationalization (i18n)
-
-Docker containerization
-
-🤝 Contributing
-
-Fork the repository
-
-Create your feature branch (git checkout -b feature/AmazingFeature)
-
-Commit your changes (git commit -m 'Add some AmazingFeature')
-
-Push to the branch (git push origin feature/AmazingFeature)
+Push: git push origin feature/AmazingFeature
 
 Open a Pull Request
 
-Coding Standards:
+Standards
 
-Follow Vue 3 Composition API best practices
+Vue 3 Composition API best practices
 
-Use TypeScript for type safety
+TypeScript
 
-Write meaningful commit messages
+Meaningful commit messages
 
 Add tests for new features
 
-Update documentation as needed
+Update docs
 
-📝 License
+License
 
-This project is created for educational and portfolio purposes.
+Educational & Portfolio Project
 
-👤 Author
-Blassenat A.
+Author: Blassenat A.
 
 GitHub: @Blassenat
 
-LinkedIn: Your LinkedIn
 
-🙏 Acknowledgments
+Acknowledgments:
 
 Inspired by enterprise SaaS platforms like HENNGE One
 
-Design inspiration from modern dashboard applications
+Modern dashboard designs
 
-
-
-
-Made with using Vue 3 and TypeScript
+Built with modern web best practices
